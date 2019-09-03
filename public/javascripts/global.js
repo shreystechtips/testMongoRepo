@@ -5,7 +5,7 @@ $(document).ready(function(){
     $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
     $('#btnAddUser').on('click', addUser);
     $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
-    $('#deleteAllData').on('click', deleteAllUsers);
+    // $('#deleteAllData').on('click', deleteAllUsers);
 });
 
 function populateTable() {
@@ -22,7 +22,7 @@ function populateTable() {
         tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '">' + this.username + '</a></td>';
         tableContent += '<td>' + this.email + '</td>';
         tableContent += '<td>' + this._id + '</td>';
-        tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+        // tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
         tableContent += '</tr>';
       });
   
@@ -99,56 +99,56 @@ function addUser(event){
     }
 };
 
-function deleteUser(event){
-    event.preventDefault();
+// function deleteUser(event){
+//     event.preventDefault();
 
-    var confirmation = confirm('Are you sure you want to delete this user?');
+//     var confirmation = confirm('Are you sure you want to delete this user?');
 
-    if (confirmation === true){
-        $.ajax({
-            type: 'DELETE',
-            url: '/users/deleteuser/' + $(this).attr('rel')
-        }).done(function(response){
-            if(!response.msg === ''){
-                alert('Error: ' + response.msg);
-            }
+//     if (confirmation === true){
+//         $.ajax({
+//             type: 'DELETE',
+//             url: '/users/deleteuser/' + $(this).attr('rel')
+//         }).done(function(response){
+//             if(!response.msg === ''){
+//                 alert('Error: ' + response.msg);
+//             }
 
-            populateTable();
-        });
-    }
-    else{
-        return false;
-    }
-};
+//             populateTable();
+//         });
+//     }
+//     else{
+//         return false;
+//     }
+// };
 
-function deleteAllUsers(event){
-    var confirmation = confirm('Are you sure you want to delete ALL users?');
-    if (confirmation){
-        setTimeout(alert('abt to delete server data'), 5000);
-        confirmation=confirm('Are you really sure you want to wipe the server???')
-        if(confirmation){
-            $.getJSON( '/users', function( data ) {
-                userListData = data;
-              // For each item in our JSON, add a table row and cells to the content string
-              $.each(data, function(){
-                $.ajax({
-                    type: 'DELETE',
-                    url: '/users/deleteuser/' + this._id,
-                }).done(function(response){
-                    if(response.msg !== ''){
-                        confirmation('Error: ' + response.msg);
-                    }
+// function deleteAllUsers(event){
+//     var confirmation = confirm('Are you sure you want to delete ALL users?');
+//     if (confirmation){
+//         setTimeout(alert('abt to delete server data'), 5000);
+//         confirmation=confirm('Are you really sure you want to wipe the server???')
+//         if(confirmation){
+//             $.getJSON( '/users', function( data ) {
+//                 userListData = data;
+//               // For each item in our JSON, add a table row and cells to the content string
+//               $.each(data, function(){
+//                 $.ajax({
+//                     type: 'DELETE',
+//                     url: '/users/deleteuser/' + this._id,
+//                 }).done(function(response){
+//                     if(response.msg !== ''){
+//                         confirmation('Error: ' + response.msg);
+//                     }
         
-                    populateTable();
-                });
-              });
-            });
-        }
-        else{
-            return false;
-        }
-    }
-    else{
-        return false;
-    }
-};
+//                     populateTable();
+//                 });
+//               });
+//             });
+//         }
+//         else{
+//             return false;
+//         }
+//     }
+//     else{
+//         return false;
+//     }
+// };
